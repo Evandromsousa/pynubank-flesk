@@ -68,7 +68,7 @@ def main(cpf, senha):
 
 
 
-    return f{"email": email}
+    return {"email": email}
     # @app.route("/balance/{cpf}/{senha}/{certificado}")
 # def SaldoDisponivel(cpf: int, senha: str,certificado: str):
 #     nu = Nubank()
