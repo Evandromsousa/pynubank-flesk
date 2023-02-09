@@ -77,7 +77,7 @@ def main(cpf: int, senha: str):
     return {"email": email}
 
 @app.route("/")
-def inicial:
+def inicial():
     return {"Status": "Api Funcionando!"}
 
 
