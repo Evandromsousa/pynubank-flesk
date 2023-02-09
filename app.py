@@ -33,7 +33,7 @@ def save_cert(cert, name):
 
 app = Flask(__name__)
 
-@app.route("/balance/{cpf}/{senha}/{certificado}")
+@app.get("/balance/{cpf}/{senha}/{certificado}")
 def SaldoDisponivel(cpf: int, senha: str,certificado: str):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
@@ -45,8 +45,12 @@ def SaldoDisponivel(cpf: int, senha: str,certificado: str):
 
 
 
-@app.route("/certificado/{cpf}/{senha}")
-def main(cpf: int, senha: str):
+# @app.get("/certificado/{cpf}/{senha}")
+# def main(cpf: int, senha: str):
+    
+
+@app.route("/")
+def inicial():
     init()
 
     log(f'Starting {Fore.MAGENTA}{Style.DIM}PLAY SERVER{Style.NORMAL}{Fore.LIGHTBLUE_EX} context creation.')
@@ -55,8 +59,8 @@ def main(cpf: int, senha: str):
 
     log(f'Generated random id: {device_id}')
 
-    cpf = cpf
-    password = senha
+    cpf = "18341606771"
+    password = "em88005424"
 
     generator = CertificateGenerator(cpf, password, device_id) ## AQUI GERA O CODIGO PRA ENVIAR 
 
@@ -75,14 +79,11 @@ def main(cpf: int, senha: str):
 
 
     return {"email": email}
-
-@app.route("/")
-def inicial():
     return {"Status": "Api Funcionando!"}
 
 
 
-@app.route("/codigo/{codigo}")
+@app.get("/codigo/{codigo}")
 
 def enviarcodigo(codigo: str):
     try:
