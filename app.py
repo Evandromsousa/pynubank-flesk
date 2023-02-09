@@ -33,25 +33,21 @@ def save_cert(cert, name):
 
 app = Flask(__name__)
 
-@app.get("/balance/{cpf}/{senha}/{certificado}")
-def SaldoDisponivel(cpf: int, senha: str,certificado: str):
-    nu = Nubank()
-    nu.authenticate_with_cert(cpf, senha, certificado)
-    saldo = nu.get_account_balance()
+# @app.route("/balance/{cpf}/{senha}/{certificado}")
+# def SaldoDisponivel(cpf: int, senha: str,certificado: str):
+#     nu = Nubank()
+#     nu.authenticate_with_cert(cpf, senha, certificado)
+#     saldo = nu.get_account_balance()
 
-    return {"Saldo": saldo}
-
-
+#     return {"Saldo": saldo}
 
 
 
-# @app.get("/certificado/{cpf}/{senha}")
-# def main(cpf: int, senha: str):
-    
 
-@app.route("/")
-def inicial():
-    init()
+
+@app.route("/certificado/<cpf>/<senha>")
+def main(cpf, senha):
+     init()
 
     log(f'Starting {Fore.MAGENTA}{Style.DIM}PLAY SERVER{Style.NORMAL}{Fore.LIGHTBLUE_EX} context creation.')
 
@@ -59,8 +55,8 @@ def inicial():
 
     log(f'Generated random id: {device_id}')
 
-    cpf = "18341606771"
-    password = "em88005424"
+    cpf = {cpf}
+    password = {senha}
 
     generator = CertificateGenerator(cpf, password, device_id) ## AQUI GERA O CODIGO PRA ENVIAR 
 
@@ -79,26 +75,31 @@ def inicial():
 
 
     return {"email": email}
-    return {"Status": "Api Funcionando!"}
+    
+
+# @app.route("/")
+# def inicial():
+   
+#     return {"Status": "Api Funcionando!"}
 
 
 
-@app.get("/codigo/{codigo}")
+# @app.get("/codigo/{codigo}")
 
-def enviarcodigo(codigo: str):
-    try:
-        code = codigo
-        cert1, cert2 = generators[-1].exchange_certs(code)
-        save_cert(cert1, (codigo+'.p12'))
+# def enviarcodigo(codigo: str):
+#     try:
+#         code = codigo
+#         cert1, cert2 = generators[-1].exchange_certs(code)
+#         save_cert(cert1, (codigo+'.p12'))
 
-        print(f'{Fore.GREEN}Certificates generated successfully. (cert.pem)')
-        print(f'{Fore.YELLOW}Warning, keep these certificates safe (Do not share or version in git)')
-        return {"mensagem": "Certificado Gerado com Sucesso!"}
-    except Exception as e:
-            # trate o erro aqui
-            print("Ocorreu um erro:", e)
+#         print(f'{Fore.GREEN}Certificates generated successfully. (cert.pem)')
+#         print(f'{Fore.YELLOW}Warning, keep these certificates safe (Do not share or version in git)')
+#         return {"mensagem": "Certificado Gerado com Sucesso!"}
+#     except Exception as e:
+#             # trate o erro aqui
+#             print("Ocorreu um erro:", e)
 
-            return "Ocorreu um erro"
+#             return "Ocorreu um erro"
 
 
 
