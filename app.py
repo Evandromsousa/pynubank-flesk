@@ -13,37 +13,31 @@ from pynubank.utils.certificate_generator import CertificateGenerator
 
 
 
-# def generate_random_id() -> str:
-#     return ''.join(random.choices(string.ascii_lowercase + string.digits, k=12))
+def generate_random_id() -> str:
+    return ''.join(random.choices(string.ascii_lowercase + string.digits, k=12))
 
 
-# def log(message, color=Fore.BLUE):
-#     print(f'{color}{Style.DIM}[*] {Style.NORMAL}{Fore.LIGHTBLUE_EX}{message}')
+def log(message, color=Fore.BLUE):
+    print(f'{color}{Style.DIM}[*] {Style.NORMAL}{Fore.LIGHTBLUE_EX}{message}')
 
 
-# def save_cert(cert, name):
-#     path = os.path.join(os.getcwd(), name)
-#     with open(path, 'wb') as cert_file:
-#         cert_file.write(cert.export())
+def save_cert(cert, name):
+    path = os.path.join(os.getcwd(), name)
+    with open(path, 'wb') as cert_file:
+        cert_file.write(cert.export())
 
 
 
 
-
+generators = []
 
 app = Flask(__name__)
 
+@app.route("/")
+def inicial:
+    return {Api Funcionando!}
 
 
-def init():
-generators = []
-
-def log(message, color=Fore.LIGHTBLUE_EX):
-cprint(message, color)
-
-def generate_random_id():
-letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-return ''.join(choice(letters) for i in range(16))
 
 @app.route("/certificado/<cpf>/<senha>")
 def main(cpf, senha):
@@ -58,20 +52,23 @@ def main(cpf, senha):
     cpf = cpf
     password = senha
 
-    generator = CertificateGenerator(cpf, password, device_id)
+    generator = CertificateGenerator(cpf, password, device_id) ## AQUI GERA O CODIGO PRA ENVIAR 
 
+
+    #return usuario
     log('Requesting e-mail code')
     try:
-        email = generator.request_code()
+        email = generator.request_code() # AQUI ELE ENVIA O CODIGO PARA O EMAIL
     except NuException:
         log(f'{Fore.RED}Failed to request code. Check your credentials!', Fore.RED)
-        return jsonify({"error": "Failed to request code. Check your credentials."})
+        return
 
     log(f'Email sent to {Fore.LIGHTBLACK_EX}{email}{Fore.LIGHTBLUE_EX}')
     generators.append(generator)
 
-    return {"Email": email}
 
+
+    return f{"email": email}
     # @app.route("/balance/{cpf}/{senha}/{certificado}")
 # def SaldoDisponivel(cpf: int, senha: str,certificado: str):
 #     nu = Nubank()
