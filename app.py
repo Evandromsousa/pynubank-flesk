@@ -33,7 +33,7 @@ def save_cert(cert, name):
 
 app = Flask(__name__)
 
-@app.get("/balance/{cpf}/{senha}/{certificado}")
+@app.route("/balance/{cpf}/{senha}/{certificado}")
 def SaldoDisponivel(cpf: int, senha: str,certificado: str):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
@@ -45,7 +45,7 @@ def SaldoDisponivel(cpf: int, senha: str,certificado: str):
 
 
 
-@app.get("/certificado/{cpf}/{senha}")
+@app.route("/certificado/{cpf}/{senha}")
 def main(cpf: int, senha: str):
     init()
 
@@ -76,11 +76,13 @@ def main(cpf: int, senha: str):
 
     return {"email": email}
 
+@app.route("/")
+def inicial:
+    return {"Status": "Api Funcionando!"}
 
 
 
-
-@app.get("/codigo/{codigo}")
+@app.route("/codigo/{codigo}")
 
 def enviarcodigo(codigo: str):
     try:
