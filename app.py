@@ -43,7 +43,7 @@ app = Flask(__name__)
 
 
 
-
+generators = []
 
 @app.route("/certificado/<cpf>/<senha>")
 def main(cpf, senha):
@@ -55,8 +55,8 @@ def main(cpf, senha):
 
     log(f'Generated random id: {device_id}')
 
-    cpf = {cpf}
-    password = {senha}
+    cpf = cpf
+    password = senha
 
     generator = CertificateGenerator(cpf, password, device_id) ## AQUI GERA O CODIGO PRA ENVIAR 
 
