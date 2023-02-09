@@ -69,36 +69,35 @@ def main(cpf, senha):
 
 
     return {"email": email}
-    # @app.route("/balance/{cpf}/{senha}/{certificado}")
-# def SaldoDisponivel(cpf: int, senha: str,certificado: str):
-#     nu = Nubank()
-#     nu.authenticate_with_cert(cpf, senha, certificado)
-#     saldo = nu.get_account_balance()
-
-#     return {"Saldo": saldo}
-# @app.route("/")
-# def inicial():
-   
-#     return {"Status": "Api Funcionando!"}
 
 
 
-# @app.get("/codigo/{codigo}")
+@app.route("/balance/<cpf>/<senha>/<certificado>")
+def SaldoDisponivel(cpf, senha,certificado):
+    nu = Nubank()
+    nu.authenticate_with_cert(cpf, senha, certificado)
+    saldo = nu.get_account_balance()
 
-# def enviarcodigo(codigo: str):
-#     try:
-#         code = codigo
-#         cert1, cert2 = generators[-1].exchange_certs(code)
-#         save_cert(cert1, (codigo+'.p12'))
+    return {"Saldo": saldo}
 
-#         print(f'{Fore.GREEN}Certificates generated successfully. (cert.pem)')
-#         print(f'{Fore.YELLOW}Warning, keep these certificates safe (Do not share or version in git)')
-#         return {"mensagem": "Certificado Gerado com Sucesso!"}
-#     except Exception as e:
-#             # trate o erro aqui
-#             print("Ocorreu um erro:", e)
 
-#             return "Ocorreu um erro"
+
+@app.route("/codigo/<codigo>")
+
+def enviarcodigo(codigo):
+    try:
+        code = codigo
+        cert1, cert2 = generators[-1].exchange_certs(code)
+        save_cert(cert1, (codigo+'.p12'))
+
+        print(f'{Fore.GREEN}Certificates generated successfully. (cert.pem)')
+        print(f'{Fore.YELLOW}Warning, keep these certificates safe (Do not share or version in git)')
+        return {"mensagem": "Certificado Gerado com Sucesso!"}
+    except Exception as e:
+            # trate o erro aqui
+            print("Ocorreu um erro:", e)
+
+            return "Ocorreu um erro"
 
 
 
