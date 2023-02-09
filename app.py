@@ -34,7 +34,7 @@ generators = []
 app = Flask(__name__)
 
 @app.route("/")
-def inicial:
+def inicial():
     return {Api Funcionando!}
 
 
