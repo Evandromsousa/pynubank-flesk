@@ -35,7 +35,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def inicial():
-    return {Api Funcionando!}
+    return {"Status":"Api Funcionando!"}
 
 
 
