@@ -33,10 +33,9 @@ from pynubank.utils.certificate_generator import CertificateGenerator
 
 app = Flask(__name__)
 
-generators = []
+
 
 def init():
-global generators
 generators = []
 
 def log(message, color=Fore.LIGHTBLUE_EX):
