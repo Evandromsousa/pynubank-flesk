@@ -29,7 +29,7 @@ def save_cert(cert, name):
 
 
 
-generators = []
+
 
 app = Flask(__name__)
 
@@ -71,13 +71,15 @@ def main(cpf, senha):
     return {"email": email}
 
 
+generators = []
 
 @app.route("/codigo/<codigo>")
 
 def enviarcodigo(codigo):
     try:
+       
         code = codigo
-        cert1, cert2 = generators[-1].exchange_certs(code)
+        cert1, cert2 = generators[0].exchange_certs(code)
         save_cert(cert1, (codigo+'.p12'))
 
         print(f'{Fore.GREEN}Certificates generated successfully. (cert.pem)')
