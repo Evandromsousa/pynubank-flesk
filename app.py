@@ -78,7 +78,7 @@ def main(cpf, senha):
 
 def enviarcodigo(codigo):
     try:
-       global generators
+        global generators
         code = codigo
         cert1, cert2 = generators[-1].exchange_certs(code)
         save_cert(cert1, (codigo+'.p12'))
