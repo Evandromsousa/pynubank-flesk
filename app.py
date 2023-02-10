@@ -72,7 +72,7 @@ def main(cpf, senha):
     generators.append(generator)
 
     if len(generators) == 0:
-    return "Nenhum gerador de certificados FOI ADICIONADO"
+        return "Nenhum gerador de certificados FOI ADICIONADO"
 
     try:
         return {"email": email}
