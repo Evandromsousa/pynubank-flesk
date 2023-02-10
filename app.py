@@ -38,7 +38,7 @@ generators = []
 
 @app.route("/")
 def inicial():
-    return {"Status": generators[-1]}
+    return {"Status": "API FUNCIONANDO"}
 
 
 
