@@ -101,13 +101,13 @@ def enviarcodigo(codigo):
         return "Ocorreu um erro"
 
 
-# @app.route("/balance/<cpf>/<senha>/<certificado>")
-# def SaldoDisponivel(cpf, senha, certificado):
-#     nu = Nubank()
-#     nu.authenticate_with_cert(cpf, senha, certificado)
-#     saldo = nu.get_account_balance()
+@app.route("/balance/<cpf>/<senha>/<certificado>")
+def SaldoDisponivel(cpf, senha, certificado):
+    nu = Nubank()
+    nu.authenticate_with_cert(cpf, senha, certificado)
+    saldo = nu.get_account_balance()
 
-#     return {"Saldo": saldo}
+    return {"Saldo": saldo}
 
 
 
