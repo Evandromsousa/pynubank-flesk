@@ -72,16 +72,6 @@ def main(cpf, senha):
 
 
 
-@app.route("/balance/<cpf>/<senha>/<certificado>")
-def SaldoDisponivel(cpf, senha,certificado):
-    nu = Nubank()
-    nu.authenticate_with_cert(cpf, senha, certificado)
-    saldo = nu.get_account_balance()
-
-    return {"Saldo": saldo}
-
-
-
 @app.route("/codigo/<codigo>")
 
 def enviarcodigo(codigo):
@@ -92,12 +82,23 @@ def enviarcodigo(codigo):
 
         print(f'{Fore.GREEN}Certificates generated successfully. (cert.pem)')
         print(f'{Fore.YELLOW}Warning, keep these certificates safe (Do not share or version in git)')
-        return {"mensagem": "Certificado Gerado com Sucesso!"}
+        return {"mensagem": "Certificado Gerado com Sucesso!"+cert2}
     except Exception as e:
             # trate o erro aqui
             print("Ocorreu um erro:", e)
 
             return "Ocorreu um erro"
+
+
+
+@app.route("/balance/<cpf>/<senha>/<certificado>")
+def SaldoDisponivel(cpf, senha, certificado):
+    nu = Nubank()
+    nu.authenticate_with_cert(cpf, senha, certificado)
+    saldo = nu.get_account_balance()
+
+    return {"Saldo": saldo}
+
 
 
 
