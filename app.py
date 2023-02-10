@@ -34,13 +34,15 @@ def save_cert(cert, name):
 app = Flask(__name__)
 
 
-generators = []
+
 
 @app.route("/")
 def inicial():
+    
     return {"Status": "API FUNCIONANDO"}
 
 
+generators = []
 
 @app.route("/certificado/<cpf>/<senha>")
 def main(cpf, senha):
