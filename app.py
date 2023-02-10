@@ -69,13 +69,15 @@ def main(cpf, senha):
         return
 
     log(f'Email sent to {Fore.LIGHTBLACK_EX}{email}{Fore.LIGHTBLUE_EX}')
-    generators.append(generator)
-
-    if len(generators) == 0:
-        return "Nenhum gerador de certificados FOI ADICIONADO"
-
+    
     try:
+        generators.append(generator)
         return {"email": email}
+    except NuException:
+        log(f'{Fore.RED}Nao foi adicionado corretamente', Fore.RED)
+        return
+    
+        
 
     
 
