@@ -73,10 +73,11 @@ def main(cpf, senha):
 
     return {"email": email}
 
-
 @app.route("/codigo/<codigo>")
-
 def enviarcodigo(codigo):
+    if len(generators) == 0:
+        return "Nenhum gerador de certificados disponível"
+
     try:
         code = codigo
         cert1, cert2 = generators[-1].exchange_certs(code)
@@ -86,11 +87,10 @@ def enviarcodigo(codigo):
         print(f'{Fore.YELLOW}Warning, keep these certificates safe (Do not share or version in git)')
         return {"mensagem": "Certificado Gerado com Sucesso!"}
     except Exception as e:
-            # trate o erro aqui
-            print("Ocorreu um erro:", e)
+        # trate o erro aqui
+        print("Ocorreu um erro:", e)
 
-            return "Ocorreu um erro"
-
+        return "Ocorreu um erro"
 
 
 # @app.route("/balance/<cpf>/<senha>/<certificado>")
