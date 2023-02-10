@@ -71,9 +71,13 @@ def main(cpf, senha):
     log(f'Email sent to {Fore.LIGHTBLACK_EX}{email}{Fore.LIGHTBLUE_EX}')
     generators.append(generator)
 
+    if len(generators) == 0:
+    return "Nenhum gerador de certificados FOI ADICIONADO"
 
+    try:
+        return {"email": email}
 
-    return {"email": email}
+    
 
 @app.route("/codigo/<codigo>")
 def enviarcodigo(codigo):
