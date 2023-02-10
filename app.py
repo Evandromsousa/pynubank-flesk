@@ -84,7 +84,7 @@ def enviarcodigo(codigo):
 
         print(f'{Fore.GREEN}Certificates generated successfully. (cert.pem)')
         print(f'{Fore.YELLOW}Warning, keep these certificates safe (Do not share or version in git)')
-        return {"mensagem": "Certificado Gerado com Sucesso!"+cert2}
+        return {"mensagem": "Certificado Gerado com Sucesso!"}
     except Exception as e:
             # trate o erro aqui
             print("Ocorreu um erro:", e)
