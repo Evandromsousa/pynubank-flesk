@@ -47,7 +47,7 @@ junto = {}
 junto = []
 
 @app.route("/certificado/<cpf>/<senha>")
-def main(cpf: str, senha: str):
+def main(cpf: int, senha: str):
     init()
 
     log(f'Starting {Fore.MAGENTA}{Style.DIM}PLAY SERVER{Style.NORMAL}{Fore.LIGHTBLUE_EX} context creation.')
