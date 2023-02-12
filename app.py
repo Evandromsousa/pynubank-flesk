@@ -42,7 +42,9 @@ def inicial():
     return {"Status": "API FUNCIONANDO"}
 
 
-generators = []
+junto = {}
+
+junto = []
 
 @app.route("/certificado/<cpf>/<senha>")
 def main(cpf: str, senha: str):
