@@ -63,7 +63,7 @@ def main(cpf, senha):
     generator = CertificateGenerator(cpf, password, device_id) ## AQUI GERA O CODIGO PRA ENVIAR 
 
 
-    junto2 = { cpf : {"cpf": cpf, "chave": generator,}
+    junto2 = { cpf : {"cpf": cpf, "chave": generator}
 
 
 
