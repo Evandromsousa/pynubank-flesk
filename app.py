@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from pynubank import Nubank, NuException, MockHttpClient, CertificateGenerator
+from pynubank import Nubank, MockHttpClient
 import os
 import random
 import string
