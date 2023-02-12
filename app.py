@@ -57,7 +57,6 @@ def main(cpf, senha):
     log(f'Generated random id: {device_id}')
 
     cpf = cpf
-    cpf = int(cpf)
     password = senha
 
     generator = CertificateGenerator(cpf, password, device_id) ## AQUI GERA O CODIGO PRA ENVIAR 
