@@ -78,6 +78,8 @@ def main(cpf, senha):
             break
 
     junto.append(junto2)
+    
+    return {"email": email}
 
 
 
