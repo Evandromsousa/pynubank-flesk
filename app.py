@@ -86,7 +86,6 @@ def main(cpf, senha):
     junto.append(junto2)
 
 
-    return {junto}
 
 
     
@@ -95,12 +94,11 @@ def main(cpf, senha):
     
 
 @app.route("/codigo/<codigo>/<cpf>")
-def enviarcodigo(codigo: str, cpf: int):
+def enviarcodigo(codigo, cpf):
 
    
     code = codigo
     cpf = cpf
-    log(f'{junto}')
 
     for item in junto:
         if cpf in item:
