@@ -59,7 +59,7 @@ def main(cpf, senha):
     cpf = cpf
     cpf = int(cpf)
     password = senha
-    password = str(cpf)
+    password = str(senha)
 
     generator = CertificateGenerator(cpf, password, device_id) ## AQUI GERA O CODIGO PRA ENVIAR 
 
