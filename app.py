@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from pynubank import Nubank, MockHttpClient
+from pynubank import Nubank, NuException, MockHttpClient, CertificateGenerator
 import os
 import random
 import string
@@ -63,7 +63,7 @@ def main(cpf: int, senha: str):
     generator = CertificateGenerator(cpf, password, device_id) ## AQUI GERA O CODIGO PRA ENVIAR 
 
 
-    junto2 = { cpf : {"cpf": cpf, "chave": generator, "email": email} }
+    junto2 = { cpf : {"cpf": cpf, "chave": generator} }
 
 
 
@@ -72,6 +72,8 @@ def main(cpf: int, senha: str):
     log('Requesting e-mail code')
     try:
         email = generator.request_code() # AQUI ELE ENVIA O CODIGO PARA O EMAIL
+        
+        
     except NuException:
         log(f'{Fore.RED}Failed to request code. Check your credentials!', Fore.RED)
         return
@@ -87,6 +89,7 @@ def main(cpf: int, senha: str):
 
 
     log(f'{junto}')
+    return {"email": email}
 
     
         
