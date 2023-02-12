@@ -69,7 +69,7 @@ def main(cpf, senha):
 
 
     #return usuario
-    log("Requesting e-mail code")
+    log('Requesting e-mail code')
     try:
         email = generator.request_code() # AQUI ELE ENVIA O CODIGO PARA O EMAIL
     except NuException:
