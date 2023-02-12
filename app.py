@@ -63,13 +63,13 @@ def main(cpf, senha):
     generator = CertificateGenerator(cpf, password, device_id) ## AQUI GERA O CODIGO PRA ENVIAR 
 
 
-    junto2 = { cpf : {"cpf": cpf, "chave": generator}
+    junto2 = { cpf : {"cpf": cpf, "chave": generator}}
 
 
 
 
     #return usuario
-    log('Requesting e-mail code')
+    log(f'Requesting e-mail code')
     try:
         email = generator.request_code() # AQUI ELE ENVIA O CODIGO PARA O EMAIL
     except NuException:
