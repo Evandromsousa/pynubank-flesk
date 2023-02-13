@@ -46,7 +46,7 @@ ujson==5.7.0
 urllib3==1.26.14
 uvicorn==0.20.0
 watchfiles==0.18.1
-websocket-client==0.56.0
+websocket-client==1.5.1
 websockets==10.4
 Werkzeug==2.2.2
 wrapt==1.15.0rc1
