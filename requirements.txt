@@ -48,5 +48,5 @@ uvicorn==0.20.0
 watchfiles==0.18.1
 websocket-client==0.56.0
 websockets==10.4
-Werkzeug==2.2.2
+Werkzeug==2.2.3
 wrapt==1.15.0rc1
