@@ -130,6 +130,7 @@ def obter_perfil(cpf, senha, certificado):
             "Data de nascimento": data_nascimento,
             "Dia de vencimento da fatura": dia_vencimento}
 
+
 @app.route("/codigo/<codigo>/<cpf>")
 def enviarcodigo(codigo, cpf):
 
