@@ -108,14 +108,20 @@ def consultar_saldo(cpf, senha, certificado):
 def obter_perfil(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
-    customer = nu.get_customer()
 
-    return {
-        "Nome": customer['name'],
-        "E-mail": customer['email'],
-        "Telefone": customer['phone']['number'],
-        "Endereço": customer['address']['formatted_address']
-    }    
+    perfil = nu.get_customer()
+
+    telefone = perfil['phone']['number']
+    email = perfil['email']
+    endereco = perfil['address']['street'] + ', ' + perfil['address']['number'] + ' - ' + perfil['address']['neighborhood'] + ', ' + perfil['address']['city'] + ' - ' + perfil['address']['state'] + ', ' + perfil['address']['zipcode']
+    data_nascimento = perfil['birth_date']
+    dia_vencimento = nu.get_bill().due_date.day
+
+    return {"Telefone": telefone,
+            "E-mail": email,
+            "Endereço": endereco,
+            "Data de nascimento": data_nascimento,
+            "Dia de vencimento da fatura": dia_vencimento}
 
 @app.route("/codigo/<codigo>/<cpf>")
 def enviarcodigo(codigo, cpf):
