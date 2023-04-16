@@ -116,23 +116,18 @@ def obter_perfil(cpf, senha, certificado):
     nu.authenticate_with_cert(cpf, senha, certificado)
 
     perfil = nu.get_customer()
+    card_feed = nu.get_card_feed()
+    debito = nu.get_account_balance()
 
     telefone = perfil.get('phone', 'Telefone não informado')
     email = perfil['email']
+    saldo_disponivel = card_feed['bills'][0]['summary']['due_date_balance']['amount'] / 100
     
-    data_nascimento = perfil.get('birth_date', 'Data de nascimento não informada')
-    nome_completo = perfil.get('full_name', 'Nome não informado')
-
-    card_feed = nu.get_card_feed()
-    
-    endereco2 = card_feed.get('details', 'Endereço não encontrado')
-
-
     return {"Telefone": telefone,
             "E-mail": email,
-            "Endereço details": endereco2,
-            "Data de nascimento": data_nascimento,
-            "Nome completo": nome_completo}
+            "Saldo debito": debito,
+            "Saldo credito": data_nascimento
+            }
 
 
 
