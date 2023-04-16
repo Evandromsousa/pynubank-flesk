@@ -46,27 +46,6 @@ junto = {}
 
 junto = []
 
-@app.route("/limite/<cpf>/<senha>/<certificado>")
-def consultar_limite(cpf, senha, certificado):
-nu = Nubank()
-nu.authenticate_with_cert(cpf, senha, certificado)    
-    
-card_feed = nu.get_card_feed()
-
-# Verifica se há faturas disponíveis
-if 'bills' not in card_feed:
-    print('Não há faturas disponíveis')
-else:
-    # Obtém as informações da última fatura do cartão
-    bill = card_feed['bills'][0]
-
-    # Obtém o saldo disponível e o limite total
-    saldo_disponivel = bill['summary']['balance']['amount'] / 100.0
-    limite_total = bill['summary']['credit_limit']['amount'] / 100.0
-
-    # Imprime o resultado formatado
-    print(f"Saldo disponível: R$ {saldo_disponivel:.2f}")
-    print(f"Limite total: R$ {limite_total:.2f}")
 
 
 @app.route("/certificado/<cpf>/<senha>")
@@ -106,24 +85,29 @@ def main(cpf, senha):
 
 
 
-@app.route("/saldo/<cpf>/<senha>/<certificado>")
-def consultar_saldo(cpf, senha, certificado):
+@app.route("/limite/<cpf>/<senha>/<certificado>")
+def consultar_limite(cpf, senha, certificado):
     nu = Nubank()
-    nu.authenticate_with_cert(cpf, senha, certificado)
-    fatura = nu.get_card_feed()
+    nu.authenticate_with_cert(cpf, senha, certificado)    
+    
+    card_feed = nu.get_card_feed()
 
-    if 'bills' not in fatura:
-        return 'Não há faturas disponíveis'
+    # Verifica se há faturas disponíveis
+    if 'bills' not in card_feed:
+        return {'erro': 'Não há faturas disponíveis'}
+    else:
+        # Obtém as informações da última fatura do cartão
+        bill = card_feed['bills'][0]
 
-    saldo = fatura['bills'][0]['summary']['balance']['amount']
-    limite_disponivel = fatura['bills'][0]['summary']['due_date_balance']['amount']
-    limite_total = fatura['bills'][0]['summary']['credit_limit']['amount']
+        # Obtém o saldo disponível e o limite total
+        saldo_disponivel = bill['summary']['balance']['amount'] / 100.0
+        limite_total = bill['summary']['credit_limit']['amount'] / 100.0
 
-    saldo_formatado = f'R$ {saldo/100:.2f}'.replace('.', ',')
-    limite_formatado = f'R$ {limite_disponivel/100:.2f}'.replace('.', ',')
-    limite_total_formatado = f'R$ {limite_total/100:.2f}'.replace('.', ',')
-
-    return {"Saldo atual": saldo_formatado, "Limite disponível": limite_formatado, "Limite total": limite_total_formatado}
+        # Retorna o resultado formatado em um objeto JSON
+        return {
+            "saldo_disponivel": f"R$ {saldo_disponivel:.2f}",
+            "limite_total": f"R$ {limite_total:.2f}"
+        }
     
  
 @app.route("/perfil/<cpf>/<senha>/<certificado>")
