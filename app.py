@@ -89,6 +89,9 @@ def consultar_saldo(cpf, senha, certificado):
     nu.authenticate_with_cert(cpf, senha, certificado)
     fatura = nu.get_card_feed()
 
+    if 'bills' not in fatura:
+        return 'Não há faturas disponíveis'
+
     saldo = fatura['bills'][0]['summary']['balance']['amount']
     limite_disponivel = fatura['bills'][0]['summary']['due_date_balance']['amount']
     limite_total = fatura['bills'][0]['summary']['credit_limit']['amount']
@@ -101,7 +104,18 @@ def consultar_saldo(cpf, senha, certificado):
     
         
 
-    
+@app.route("/perfil/<cpf>/<senha>/<certificado>")
+def obter_perfil(cpf, senha, certificado):
+    nu = Nubank()
+    nu.authenticate_with_cert(cpf, senha, certificado)
+    customer = nu.get_customer()
+
+    return {
+        "Nome": customer['name'],
+        "E-mail": customer['email'],
+        "Telefone": customer['phone']['number'],
+        "Endereço": customer['address']['formatted_address']
+    }    
 
 @app.route("/codigo/<codigo>/<cpf>")
 def enviarcodigo(codigo, cpf):
@@ -131,17 +145,9 @@ def SaldoDisponivel(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
     debito = nu.get_account_balance()
-    fatura = nu.get_card_feed()
 
-    saldo = fatura['bills'][0]['summary']['balance']['amount']
-    limite_disponivel = fatura['bills'][0]['summary']['due_date_balance']['amount']
-    limite_total = fatura['bills'][0]['summary']['credit_limit']['amount']
 
-    saldo_formatado = f'R$ {saldo/100:.2f}'.replace('.', ',')
-    limite_formatado = f'R$ {limite_disponivel/100:.2f}'.replace('.', ',')
-    limite_total_formatado = f'R$ {limite_total/100:.2f}'.replace('.', ',')
-
-    return {"Saldo atual": saldo_formatado, "Limite disponível": limite_formatado, "Limite total": limite_total_formatado, "Saldo": debito}
+    return {"Saldo": debito}
    
 
 
