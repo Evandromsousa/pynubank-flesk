@@ -92,23 +92,8 @@ def consultar_limite(cpf, senha, certificado):
     
     card_feed = nu.get_card_feed()
 
-    # Verifica se há faturas disponíveis
-    if 'bills' not in card_feed:
-        return {'erro': 'Não há faturas disponíveis'}
-    else:
-        # Obtém as informações da última fatura do cartão
-        bill = card_feed['bills'][0]
+    print(card_feed.json())
 
-        # Obtém o saldo disponível e o limite total
-        saldo_disponivel = bill['summary']['balance']['amount'] / 100.0
-        limite_total = bill['summary']['credit_limit']['amount'] / 100.0
-
-        # Retorna o resultado formatado em um objeto JSON
-        return {
-            "saldo_disponivel": f"R$ {saldo_disponivel:.2f}",
-            "limite_total": f"R$ {limite_total:.2f}"
-        }
-    
  
 @app.route("/perfil/<cpf>/<senha>/<certificado>")
 def obter_perfil(cpf, senha, certificado):
@@ -118,15 +103,14 @@ def obter_perfil(cpf, senha, certificado):
     perfil = nu.get_customer()
     card_feed = nu.get_card_feed()
     debito = nu.get_account_balance()
+    print(card_feed.json())
 
     telefone = perfil.get('phone', 'Telefone não informado')
     email = perfil['email']
-    saldo_disponivel = card_feed['bills'][0]['summary']['due_date_balance']['amount'] / 100
     
     return {"Telefone": telefone,
             "E-mail": email,
-            "Saldo debito": debito,
-            "Saldo credito": data_nascimento
+            "Saldo debito": debito
             }
 
 
