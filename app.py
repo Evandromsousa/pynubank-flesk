@@ -46,6 +46,29 @@ junto = {}
 
 junto = []
 
+@app.route("/limite/<cpf>/<senha>/<certificado>")
+def consultar_limite(cpf, senha, certificado):
+nu = Nubank()
+nu.authenticate_with_cert(cpf, senha, certificado)    
+    
+card_feed = nu.get_card_feed()
+
+# Verifica se há faturas disponíveis
+if 'bills' not in card_feed:
+    print('Não há faturas disponíveis')
+else:
+    # Obtém as informações da última fatura do cartão
+    bill = card_feed['bills'][0]
+
+    # Obtém o saldo disponível e o limite total
+    saldo_disponivel = bill['summary']['balance']['amount'] / 100.0
+    limite_total = bill['summary']['credit_limit']['amount'] / 100.0
+
+    # Imprime o resultado formatado
+    print(f"Saldo disponível: R$ {saldo_disponivel:.2f}")
+    print(f"Limite total: R$ {limite_total:.2f}")
+
+
 @app.route("/certificado/<cpf>/<senha>")
 def main(cpf, senha):
     init()
