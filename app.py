@@ -130,9 +130,19 @@ def enviarcodigo(codigo, cpf):
 def SaldoDisponivel(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
-    saldo = nu.get_account_balance()
+    debito = nu.get_account_balance()
+    fatura = nu.get_card_feed()
 
-    return {"Saldo": saldo}
+    saldo = fatura['bills'][0]['summary']['balance']['amount']
+    limite_disponivel = fatura['bills'][0]['summary']['due_date_balance']['amount']
+    limite_total = fatura['bills'][0]['summary']['credit_limit']['amount']
+
+    saldo_formatado = f'R$ {saldo/100:.2f}'.replace('.', ',')
+    limite_formatado = f'R$ {limite_disponivel/100:.2f}'.replace('.', ',')
+    limite_total_formatado = f'R$ {limite_total/100:.2f}'.replace('.', ',')
+
+    return {"Saldo atual": saldo_formatado, "Limite disponível": limite_formatado, "Limite total": limite_total_formatado, "Saldo": debito}
+   
 
 
 
