@@ -46,6 +46,14 @@ junto = {}
 
 junto = []
 
+@app.route("/saldocredito/<cpf>/<senha>/<certificado>")
+def credit_card_balance(cpf, senha, certificado):
+    nu = Nubank()
+    nu.authenticate_with_cert(cpf, senha, certificado)
+    credit_card_account = nu.get_card_account()
+    balance = credit_card_account.get('summary', {}).get('current_balance', 0)
+    return {"credit_card_balance": balance}
+
 @app.route("/certificado/<cpf>/<senha>")
 def main(cpf, senha):
     init()
