@@ -113,7 +113,7 @@ def obter_perfil(cpf, senha, certificado):
 
     telefone = perfil.get('phone', 'Telefone não informado')
     email = perfil['email']
-    endereco = perfil.get('address', {})
+    endereco = perfil.get('address', 'Endereço não encontrado')
     data_nascimento = perfil.get('birth_date', 'Data de nascimento não informada')
 
     card_feed = nu.get_card_feed()
