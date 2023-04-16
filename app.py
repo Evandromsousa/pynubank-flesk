@@ -125,8 +125,7 @@ def obter_perfil(cpf, senha, certificado):
             "E-mail": email,
             "Endereço details": endereco2,
             "Data de nascimento": data_nascimento,
-            "Nome completo": nome_completo,
-            "Dia de vencimento da fatura": dia_vencimento}
+            "Nome completo": nome_completo}
 
 
 
