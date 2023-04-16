@@ -111,9 +111,9 @@ def obter_perfil(cpf, senha, certificado):
 
     perfil = nu.get_customer()
 
-    telefone = perfil['phone']['number']
+    telefone = perfil.get('phone', 'Telefone não informado')
     email = perfil['email']
-    endereco = perfil['address']['street'] + ', ' + perfil['address']['number'] + ' - ' + perfil['address']['neighborhood'] + ', ' + perfil['address']['city'] + ' - ' + perfil['address']['state'] + ', ' + perfil['address']['zipcode']
+    endereco = perfil.get('address', {}).get('street', '') + ', ' + perfil.get('address', {}).get('number', '') + ' - ' + perfil.get('address', {}).get('neighborhood', '') + ', ' + perfil.get('address', {}).get('city', '') + ' - ' + perfil.get('address', {}).get('state', '') + ', ' + perfil.get('address', {}).get('zipcode', '')
     data_nascimento = perfil['birth_date']
     dia_vencimento = nu.get_bill().due_date.day
 
