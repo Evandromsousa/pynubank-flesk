@@ -102,8 +102,7 @@ def consultar_saldo(cpf, senha, certificado):
 
     return {"Saldo atual": saldo_formatado, "Limite disponível": limite_formatado, "Limite total": limite_total_formatado}
     
-        
-
+ 
 @app.route("/perfil/<cpf>/<senha>/<certificado>")
 def obter_perfil(cpf, senha, certificado):
     nu = Nubank()
@@ -113,25 +112,29 @@ def obter_perfil(cpf, senha, certificado):
 
     telefone = perfil.get('phone', 'Telefone não informado')
     email = perfil['email']
-    endereco = perfil.get('address', 'Endereço não encontrado')
+    endereco = perfil.get('address', {}).get('street', '') + ', ' + perfil.get('address', {}).get('number', '') + ' - ' + perfil.get('address', {}).get('neighborhood', '') + ', ' + perfil.get('address', {}).get('city', '') + ' - ' + perfil.get('address', {}).get('state', '') + ', ' + perfil.get('address', {}).get('zipcode', '')
     data_nascimento = perfil.get('birth_date', 'Data de nascimento não informada')
+    nome_completo = perfil.get('full_name', 'Nome não informado')
+    cpf = perfil.get('cpf', 'CPF não informado')
+    rg = perfil.get('rg', 'RG não informado')
+    genero = perfil.get('gender', 'Gênero não informado')
 
     card_feed = nu.get_card_feed()
-    if isinstance(card_feed, list):
-        for event in card_feed:
-            if event.get('title') == 'Pagamento efetuado':
-                dia_vencimento = event.get('details', {}).get('billing_cycle_close_day', 'Dia de vencimento não encontrado')
-                break
-        else:
-            dia_vencimento = 'Nenhuma fatura paga encontrada'
-    else:
-        dia_vencimento = 'Nenhuma fatura paga encontrada'
+    
+    endereco2 = card_feed.get('details', 'Endereço não encontrado')
+
 
     return {"Telefone": telefone,
             "E-mail": email,
             "Endereço": endereco,
+            "Endereço details": endereco2,
             "Data de nascimento": data_nascimento,
+            "Nome completo": nome_completo,
+            "CPF": cpf,
+            "RG": rg,
+            "Gênero": genero,
             "Dia de vencimento da fatura": dia_vencimento}
+
 
 
 @app.route("/codigo/<codigo>/<cpf>")
