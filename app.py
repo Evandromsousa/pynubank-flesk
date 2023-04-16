@@ -116,22 +116,23 @@ def obter_perfil(cpf, senha, certificado):
     endereco = perfil.get('address', {}).get('street', '') + ', ' + perfil.get('address', {}).get('number', '') + ' - ' + perfil.get('address', {}).get('neighborhood', '') + ', ' + perfil.get('address', {}).get('city', '') + ' - ' + perfil.get('address', {}).get('state', '') + ', ' + perfil.get('address', {}).get('zipcode', '')
     data_nascimento = perfil.get('birth_date', 'Data de nascimento não informada')
 
-   card_feed = nu.get_card_feed()
-if isinstance(card_feed, list):
-    for event in card_feed:
-        if event.get('title') == 'Pagamento efetuado':
-            dia_vencimento = event.get('details', {}).get('billing_cycle_close_day', 'Dia de vencimento não encontrado')
-            break
+    card_feed = nu.get_card_feed()
+    if isinstance(card_feed, list):
+        for event in card_feed:
+            if event.get('title') == 'Pagamento efetuado':
+                dia_vencimento = event.get('details', {}).get('billing_cycle_close_day', 'Dia de vencimento não encontrado')
+                break
+        else:
+            dia_vencimento = 'Nenhuma fatura paga encontrada'
     else:
         dia_vencimento = 'Nenhuma fatura paga encontrada'
-else:
-    dia_vencimento = 'Nenhuma fatura paga encontrada'
 
     return {"Telefone": telefone,
             "E-mail": email,
             "Endereço": endereco,
             "Data de nascimento": data_nascimento,
             "Dia de vencimento da fatura": dia_vencimento}
+
 
 
 @app.route("/codigo/<codigo>/<cpf>")
