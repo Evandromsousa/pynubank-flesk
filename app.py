@@ -89,10 +89,12 @@ def main(cpf, senha):
 def consultar_limite(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)    
-    
-    card_feed = nu.get_card_feed()
 
-    return jsonify(card_feed)
+# Verifique o limite disponível
+    card_limit = nu.get_card_limit()
+    available_credit_limit = card_limit['available_credit_limit']
+    
+    return {"Limite disponivel": available_credit_limit}
  
 @app.route("/perfil/<cpf>/<senha>/<certificado>")
 def obter_perfil(cpf, senha, certificado):
