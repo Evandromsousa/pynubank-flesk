@@ -92,8 +92,7 @@ def consultar_limite(cpf, senha, certificado):
     
     card_feed = nu.get_card_feed()
 
-    print(card_feed.json())
-
+    return jsonify(card_feed)
  
 @app.route("/perfil/<cpf>/<senha>/<certificado>")
 def obter_perfil(cpf, senha, certificado):
@@ -101,9 +100,7 @@ def obter_perfil(cpf, senha, certificado):
     nu.authenticate_with_cert(cpf, senha, certificado)
 
     perfil = nu.get_customer()
-    card_feed = nu.get_card_feed()
     debito = nu.get_account_balance()
-    print(card_feed.json())
 
     telefone = perfil.get('phone', 'Telefone não informado')
     email = perfil['email']
