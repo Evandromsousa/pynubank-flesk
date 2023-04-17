@@ -107,9 +107,9 @@ def obter_perfil(cpf, senha, certificado):
     telefone = perfil.get('phone', 'Telefone não informado')
     email = perfil['email']
     
-    return {"Telefone": telefone,
-            "E-mail": email,
-            "Saldo debito": debito
+    return {"telefone": telefone,
+            "email": email,
+            "debito": debito
             }
 
 
