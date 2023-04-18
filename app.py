@@ -154,10 +154,10 @@ def credito(cpf, senha, certificado):
     transactions = nu.get_account_statements()
 
     # Obter a última transação
-    last_transaction = transactions[0]
+  
 
     # Imprimir o dicionário completo da última transação
-    print(last_transaction)
+    return {"Resposta": transactions}
 
 
 
