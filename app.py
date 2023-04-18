@@ -148,7 +148,7 @@ def SaldoDisponivel(cpf, senha, certificado):
 
 
 @app.route("/credito/<cpf>/<senha>/<certificado>")
-def SaldoDisponivel(cpf, senha, certificado):
+def credito(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
     card = nu.get_card()
