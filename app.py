@@ -123,14 +123,20 @@ def obter_perfilcompleto(cpf, senha, certificado):
     return {"Dados completos do perfil": perfil
             }
 
-@app.route("/dadosdaconta/<cpf>/<senha>/<certificado>")
+
+@app.route("/transacaocredito/<cpf>/<senha>/<certificado>")
 def obter_dadosdaconta(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
 
-    perfil = nu.get_account()
+    perfil = nu.get_card_feed()
     
-    return {"Dados completos da Conta": perfil
+    summary = perfil['transactions'][0]['summary']
+
+    # Calcular o limite disponível
+    limite_disponivel = summary['total_balance'] - summary['past_balance'] - int(float(summary['spent_amount']))
+    
+    return {"Limite disponivel": limite_disponivel
             }
 
 
