@@ -151,10 +151,10 @@ def SaldoDisponivel(cpf, senha, certificado):
 def credito(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
-    card = nu.get_card()
+    cards = nu.get_cards()
 
-
-    return jsonfy.dumps(card)
+    # Retornar um JSON diretamente do objeto
+    return jsonfy.dumps(cards)
    
 
 
