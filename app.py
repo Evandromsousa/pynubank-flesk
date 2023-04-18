@@ -113,6 +113,26 @@ def obter_perfil(cpf, senha, certificado):
             }
 
 
+@app.route("/perfilcompleto/<cpf>/<senha>/<certificado>")
+def obter_perfilcompleto(cpf, senha, certificado):
+    nu = Nubank()
+    nu.authenticate_with_cert(cpf, senha, certificado)
+
+    perfil = nu.get_customer()
+    
+    return {"Dados completos do perfil": perfil
+            }
+
+@app.route("/dadosdaconta/<cpf>/<senha>/<certificado>")
+def obter_dadosdaconta(cpf, senha, certificado):
+    nu = Nubank()
+    nu.authenticate_with_cert(cpf, senha, certificado)
+
+    perfil = nu.get_account()
+    
+    return {"Dados completos da Conta": perfil
+            }
+
 
 @app.route("/codigo/<codigo>/<cpf>")
 def enviarcodigo(codigo, cpf):
@@ -152,12 +172,14 @@ def credito(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
     transactions = nu.get_card_feed()
+    
+    last = transactions[0]
 
     # Obter a última transação
   
 
     # Imprimir o dicionário completo da última transação
-    return {'Resposta': transactions}
+    return {'Resposta': last}
 
 
 
