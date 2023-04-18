@@ -157,7 +157,7 @@ def credito(cpf, senha, certificado):
   
 
     # Imprimir o dicionário completo da última transação
-    return {transactions}
+    return {'transactions': transactions}
 
 
 
