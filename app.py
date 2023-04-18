@@ -151,11 +151,22 @@ def SaldoDisponivel(cpf, senha, certificado):
 def credito(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
-    cards = nu.get_account().get('credit_cards')
+    transactions = nu.get_account_statements()
 
-    # Retornar um JSON diretamente do objeto
-    return jsonfy.dumps(cards)
-   
+    # Obter a última transação
+    last_transaction = transactions[0]
+
+    # Obter o valor e a descrição da última transação
+    value = last_transaction['amount'] / 100.0
+    description = last_transaction['description']
+
+    # Criar um dicionário com os dados da última transação
+    last_transaction_dict = {'description': description, 'value': value}
+
+    # Converter o dicionário em um JSON usando a função jsonfy
+    last_transaction_json = jsonfy(last_transaction_dict)
+    
+    print(last_transaction_json)
 
 
 
