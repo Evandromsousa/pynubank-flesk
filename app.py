@@ -120,7 +120,7 @@ def obter_perfilcompleto(cpf, senha, certificado):
 
     perfil = nu.get_customer()
     
-    return {"Dados completos do perfil": perfil
+    return {"dados": perfil
             }
 
 
@@ -131,11 +131,8 @@ def obter_dadosdaconta(cpf, senha, certificado):
 
     perfil = nu.get_card_feed()
 
-    ultimo_resumo = perfil['transactions'][-1]['summary']
-    limite_disponivel = ultimo_resumo['total_balance'] - ultimo_resumo['past_balance'] - float(ultimo_resumo['spent_amount'])
-
     
-    return {"Limite disponivel": limite_disponivel
+    return {"dados": perfil
             }
 
 
