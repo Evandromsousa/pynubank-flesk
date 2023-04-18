@@ -130,11 +130,10 @@ def obter_dadosdaconta(cpf, senha, certificado):
     nu.authenticate_with_cert(cpf, senha, certificado)
 
     perfil = nu.get_card_feed()
-    
-    summary = perfil['transactions']['summary']
 
-    # Calcular o limite disponível
-    limite_disponivel = summary['total_balance'] - summary['past_balance'] - int(float(summary['spent_amount']))
+    ultimo_resumo = perfil['transactions'][-1]['summary']
+    limite_disponivel = ultimo_resumo['total_balance'] - ultimo_resumo['past_balance'] - float(ultimo_resumo['spent_amount'])
+
     
     return {"Limite disponivel": limite_disponivel
             }
