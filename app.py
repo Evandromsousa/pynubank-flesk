@@ -151,13 +151,13 @@ def SaldoDisponivel(cpf, senha, certificado):
 def credito(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
-    transactions = nu.get_bills()
+    transactions = nu.get_card_feed()
 
     # Obter a última transação
   
 
     # Imprimir o dicionário completo da última transação
-    return {'transactions': transactions}
+    return {'Resposta': transactions}
 
 
 
