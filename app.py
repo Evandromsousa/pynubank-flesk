@@ -145,6 +145,16 @@ def SaldoDisponivel(cpf, senha, certificado):
 
 
     return {"Saldo": debito}
+
+
+@app.route("/credito/<cpf>/<senha>/<certificado>")
+def SaldoDisponivel(cpf, senha, certificado):
+    nu = Nubank()
+    nu.authenticate_with_cert(cpf, senha, certificado)
+    card = nu.get_card()
+
+
+    return jsonfy.dumps(card)
    
 
 
