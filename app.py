@@ -143,12 +143,7 @@ def obter_faturas(cpf, senha, certificado):
     bills = nu.get_bills()
 
     # Percorre a lista de faturas e verifica a chave states
-    for bill in bills:
-        if bill['state'] == 'open':
-            close_date = datetime.datetime.strptime(bill['summary']['close_date'], '%Y-%m-%d').strftime('%d/%m/%Y')
-            total_balance = bill['summary']['total_balance'] / 100.0
-            print({"data": close_date, "Limite": total_balance})
-            break
+    return {"faturas": bills}
 
 @app.route("/codigo/<codigo>/<cpf>")
 def enviarcodigo(codigo, cpf):
