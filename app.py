@@ -140,7 +140,7 @@ def obter_faturas(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
 
-    perfil = get_bills()
+    perfil = nu.get_bills()
 
     
     return {"dados": perfil
