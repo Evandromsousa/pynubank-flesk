@@ -139,10 +139,15 @@ def obter_limite(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
 
-    card_feed = nu.get_card_feed()
+   card_feed = nu.get_card_feed()
 
 # Obtém o limite disponível
-    limite_disponivel = card_feed.available_credit_limit
+    limite_disponivel = None
+    for transaction in card_feed['events']:
+        if 'transaction' in transaction.keys():
+            if transaction['transaction']['category'] == 'credit_limit':
+                limite_disponivel = transaction['transaction']['amount']
+                break
     
     return{"credito": limite_disponivel}
 
