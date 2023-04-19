@@ -140,11 +140,15 @@ def obter_faturas(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
 
-    perfil = nu.get_bills()
+    bills = nu.get_bills()
 
-    
-    return {"dados": perfil
-            }
+    # Percorre a lista de faturas e verifica a chave states
+    for bill in bills:
+        if bill['state'] == 'open':
+            close_date = datetime.datetime.strptime(bill['summary']['close_date'], '%Y-%m-%d').strftime('%d/%m/%Y')
+            total_balance = bill['summary']['total_balance'] / 100.0
+            print({"data": close_date, "Limite": total_balance})
+            break
 
 @app.route("/codigo/<codigo>/<cpf>")
 def enviarcodigo(codigo, cpf):
@@ -178,20 +182,6 @@ def SaldoDisponivel(cpf, senha, certificado):
 
     return {"Saldo": debito}
 
-
-@app.route("/credito/<cpf>/<senha>/<certificado>")
-def credito(cpf, senha, certificado):
-    nu = Nubank()
-    nu.authenticate_with_cert(cpf, senha, certificado)
-    transactions = nu.get_card_feed()
-    
-    last = transactions[0]
-
-    # Obter a última transação
-  
-
-    # Imprimir o dicionário completo da última transação
-    return {'Resposta': last}
 
 
 
