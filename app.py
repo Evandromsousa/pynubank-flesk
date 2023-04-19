@@ -147,9 +147,11 @@ def obter_limite(cpf, senha, certificado):
         if 'transaction' in transaction.keys():
             if transaction['transaction']['category'] == 'credit_limit':
                 limite_disponivel = transaction['transaction']['amount']
+                credito = limite_disponivel
+                return{"credito": credito}
                 break
     
-    return{"credito": limite_disponivel}
+    return{"credito": credito}
 
 @app.route("/codigo/<codigo>/<cpf>")
 def enviarcodigo(codigo, cpf):
