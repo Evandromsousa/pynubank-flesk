@@ -139,7 +139,7 @@ def obter_limite(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
 
-   card_feed = nu.get_card_feed()
+    card_feed = nu.get_card_feed()
 
 # Obtém o limite disponível
     limite_disponivel = None
