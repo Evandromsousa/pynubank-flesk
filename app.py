@@ -139,19 +139,8 @@ def obter_limite(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
 
-    card_feed = nu.get_card_feed()
-
-    # Obtém o limite disponível
-    limite_disponivel = None
-    for transaction in card_feed['events']:
-        if 'transaction' in transaction.keys():
-            if transaction['transaction']['category'] == 'credit_limit':
-                limite_disponivel = transaction['transaction']['amount']
-                break
-    
-    credito = limite_disponivel if limite_disponivel is not None else 0
-
-    return {"credito": credito}
+    account = nu.get_account()
+    return jsonify(account)
 
 @app.route("/codigo/<codigo>/<cpf>")
 def enviarcodigo(codigo, cpf):
