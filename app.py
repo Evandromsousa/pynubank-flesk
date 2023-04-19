@@ -141,17 +141,17 @@ def obter_limite(cpf, senha, certificado):
 
     card_feed = nu.get_card_feed()
 
-# Obtém o limite disponível
+    # Obtém o limite disponível
     limite_disponivel = None
     for transaction in card_feed['events']:
         if 'transaction' in transaction.keys():
             if transaction['transaction']['category'] == 'credit_limit':
                 limite_disponivel = transaction['transaction']['amount']
-                credito = limite_disponivel
-                return{"credito": credito}
                 break
     
-    return{"credito": credito}
+    credito = limite_disponivel if limite_disponivel is not None else 0
+
+    return {"credito": credito}
 
 @app.route("/codigo/<codigo>/<cpf>")
 def enviarcodigo(codigo, cpf):
