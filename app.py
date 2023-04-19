@@ -84,17 +84,6 @@ def main(cpf, senha):
     return {"email": email}
 
 
-
-@app.route("/limite/<cpf>/<senha>/<certificado>")
-def consultar_limite(cpf, senha, certificado):
-    nu = Nubank()
-    nu.authenticate_with_cert(cpf, senha, certificado)    
-
-# Verifique o limite disponível
-    card_limit = nu.get_card_limit()
-    available_credit_limit = card_limit['available_credit_limit']
-    
-    return {"Limite disponivel": available_credit_limit}
  
 @app.route("/perfil/<cpf>/<senha>/<certificado>")
 def obter_perfil(cpf, senha, certificado):
@@ -144,6 +133,18 @@ def obter_faturas(cpf, senha, certificado):
 
     # Percorre a lista de faturas e verifica a chave states
     return {"faturas": bills}
+
+@app.route("/limite/<cpf>/<senha>/<certificado>")
+def obter_limite(cpf, senha, certificado):
+    nu = Nubank()
+    nu.authenticate_with_cert(cpf, senha, certificado)
+
+    card_feed = nu.get_card_feed()
+
+# Obtém o limite disponível
+    limite_disponivel = card_feed.available_credit_limit
+    
+    return{"credito": limite_disponivel}
 
 @app.route("/codigo/<codigo>/<cpf>")
 def enviarcodigo(codigo, cpf):
