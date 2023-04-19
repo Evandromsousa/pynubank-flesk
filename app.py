@@ -123,6 +123,16 @@ def obter_dadosdaconta(cpf, senha, certificado):
     
     return {"dados": perfil
             }
+@app.route("/extratobancario/<cpf>/<senha>/<certificado>")
+def obter_extratobancario(cpf, senha, certificado):
+    nu = Nubank()
+    nu.authenticate_with_cert(cpf, senha, certificado)
+
+    perfil = nu.get_account_statements()
+
+    
+    return {"dados": perfil
+            }
 
 @app.route("/faturas/<cpf>/<senha>/<certificado>")
 def obter_faturas(cpf, senha, certificado):
