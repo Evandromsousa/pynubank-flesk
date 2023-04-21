@@ -147,13 +147,7 @@ def obter_faturas(cpf, senha, certificado):
 
 
 
-@app.route("/limite2/<cpf>/<senha>/<certificado>")
-def obter_limite2(cpf, senha, certificado):
-    nu = Nubank()
-    nu.authenticate_with_cert(cpf, senha, certificado)
-    
-   access_token = nu._authenticated_session.access_token
-   return {"token": access_token}
+
 
 @app.route("/limite3/<cpf>/<senha>/<certificado>")
 def obter_limite3(cpf, senha, certificado):
