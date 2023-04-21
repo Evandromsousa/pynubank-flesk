@@ -149,10 +149,10 @@ def obter_limite(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
 
-    nuconta = nu.get_account()
-    response = nuconta.get_account_details()
-    account_details = json.loads(response.text)
-    print(account_details["account"]["status"]) 
+    limit = nu.get_account_limit()
+
+    # Print the credit limit
+    print("Current credit limit:", limit)   
 
 @app.route("/limite2/<cpf>/<senha>/<certificado>")
 def obter_limite2(cpf, senha, certificado):
