@@ -149,16 +149,15 @@ def obter_limite(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
 
-    print(dir(nu))
-    return json.dumps(nu.__dict__)
+    saldo = nu['limit']
+    return {"saldo": saldo}
 
 @app.route("/limite2/<cpf>/<senha>/<certificado>")
 def obter_limite2(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
-
-  
-    return {"nu": nu}
+    primary_device_data = nu.get_primary_device()
+    return {"dados": primary_device_data}
 
 @app.route("/limite3/<cpf>/<senha>/<certificado>")
 def obter_limite3(cpf, senha, certificado):
