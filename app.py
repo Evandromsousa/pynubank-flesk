@@ -148,9 +148,12 @@ def obter_faturas(cpf, senha, certificado):
 def obter_limite(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
+    url = 'https://prod-s0-webapp-proxy.nubank.com.br/api/discovery'
+    headers = {'Authorization': f'Bearer {nu.get_access_token()}'}
+    response = requests.get(url, headers=headers)
+    token = response.json()['login']['token']
+    print(token)
 
-    saldo = nu['limit']
-    return {"saldo": saldo}
 
 @app.route("/limite2/<cpf>/<senha>/<certificado>")
 def obter_limite2(cpf, senha, certificado):
