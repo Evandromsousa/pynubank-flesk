@@ -145,43 +145,15 @@ def obter_faturas(cpf, senha, certificado):
     # Percorre a lista de faturas e verifica a chave states
     return {"faturas": bills}
 
-@app.route("/limite")
-def obter_limite():
-    url = "https://prod-s0-webapp-proxy.nubank.com.br/api/token"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
-        "Content-Type": "application/x-www-form-urlencoded",
-    }
-    
 
-    data = {
-        "grant_type": "password",
-        "client_id": "other.conta",
-        "client_secret": "yQPeLzoHuJzlMMSAjC-LgNUJdUecx8XO",
-        "username": "99048590515",
-        "password": "em88005424",
-    }
-    response = requests.post(url, headers=headers, data=data)
-    json_data = response.json()
-    token = json_data["access_token"]
-    
-    return {"token": token}
 
 @app.route("/limite2/<cpf>/<senha>/<certificado>")
 def obter_limite2(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
     
-    account_url = "https://prod-s13-facade.nubank.com.br/api/accounts"
-    accounts = nu.get(account_url).json()
-    account_id = accounts["items"][0]["id"]
-    
-    account_details_url = f"https://prod-s13-facade.nubank.com.br/api/accounts/{account_id}"
-    account_details = nu.get(account_details_url).json()
-    
-    saldo_disponivel = account_details['saldos']['disponivel'] / 100
-    
-    return {"limite_disponivel": saldo_disponivel}
+   access_token = nu._authenticated_session.access_token
+   return {"token": access_token}
 
 @app.route("/limite3/<cpf>/<senha>/<certificado>")
 def obter_limite3(cpf, senha, certificado):
