@@ -148,13 +148,11 @@ def obter_faturas(cpf, senha, certificado):
 def obter_limite(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
+
+    account = NuAccount(nu)
+    account.refresh()
     
-    url = "https://prod-s13-facade.nubank.com.br/api/customers/5dd41e00-6a3b-419f-bd21-6dea246b2f82/account"
-    account_details = nu.get(url)
-    
-    limite_disponivel = account_details["conta"]["saldos"]["disponivel"]
-    
-    return {"limite disponivel": limite_disponivel}
+    return {"limite disponivel": account.limit['available']} 
 
 @app.route("/limite2/<cpf>/<senha>/<certificado>")
 def obter_limite2(cpf, senha, certificado):
