@@ -149,22 +149,28 @@ def obter_limite(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
     
-    def get_credit_card_balance(self):
-        account_details = self._client.get(self._account_url)
-        return account_details['conta']['saldos']['disponivel'] / 100
+    url = "https://prod-s13-facade.nubank.com.br/api/customers/5dd41e00-6a3b-419f-bd21-6dea246b2f82/account"
+    account_details = nu.get(url)
     
-    return {"limite disponivel": {get_credit_card_balance(nu)}}
+    limite_disponivel = account_details["conta"]["saldos"]["disponivel"]
+    
+    return {"limite disponivel": limite_disponivel}
 
 @app.route("/limite2/<cpf>/<senha>/<certificado>")
 def obter_limite2(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
-
-    def get_credit_card_balance(self):
-        account_details = self._client.get(self._account_url)
-        return account_details['conta']['saldos']['disponivel'] / 100
     
-    return f"O limite disponível é de R${get_credit_card_balance(nu):.2f}"
+    account_url = "https://prod-s13-facade.nubank.com.br/api/accounts"
+    accounts = nu.get(account_url).json()
+    account_id = accounts["items"][0]["id"]
+    
+    account_details_url = f"https://prod-s13-facade.nubank.com.br/api/accounts/{account_id}"
+    account_details = nu.get(account_details_url).json()
+    
+    saldo_disponivel = account_details['saldos']['disponivel'] / 100
+    
+    return {"limite_disponivel": saldo_disponivel}
 
 @app.route("/limite3/<cpf>/<senha>/<certificado>")
 def obter_limite3(cpf, senha, certificado):
