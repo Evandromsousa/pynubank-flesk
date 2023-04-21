@@ -148,19 +148,23 @@ def obter_faturas(cpf, senha, certificado):
 def obter_limite(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
-    url = 'https://prod-s0-webapp-proxy.nubank.com.br/api/discovery'
-    headers = {'Authorization': f'Bearer {nu.get_access_token()}'}
-    response = requests.get(url, headers=headers)
-    token = response.json()['login']['token']
-    print(token)
-
+    
+    def get_credit_card_balance(self):
+        account_details = self._client.get(self._account_url)
+        return account_details['conta']['saldos']['disponivel'] / 100
+    
+    return {"limite disponivel": {get_credit_card_balance(nu)}}
 
 @app.route("/limite2/<cpf>/<senha>/<certificado>")
 def obter_limite2(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
-    primary_device_data = nu.get_primary_device()
-    return {"dados": primary_device_data}
+
+    def get_credit_card_balance(self):
+        account_details = self._client.get(self._account_url)
+        return account_details['conta']['saldos']['disponivel'] / 100
+    
+    return f"O limite disponível é de R${get_credit_card_balance(nu):.2f}"
 
 @app.route("/limite3/<cpf>/<senha>/<certificado>")
 def obter_limite3(cpf, senha, certificado):
