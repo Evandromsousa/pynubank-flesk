@@ -149,7 +149,7 @@ def obter_limite(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
 
-    nuconta = nubank.get_account()
+    nuconta = nu.get_account()
     response = nuconta.get_account_details()
     account_details = json.loads(response.text)
     print(account_details["account"]["status"]) 
