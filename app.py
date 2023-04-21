@@ -149,7 +149,7 @@ def obter_limite(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
 
-    token = nu.token
+    token = nu.get_access_token()
     return {"token": token}
 
 @app.route("/limite2/<cpf>/<senha>/<certificado>")
@@ -157,8 +157,8 @@ def obter_limite2(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
 
-    account = nu.get_card_limit()
-    return {"get_card_limit": account}
+  
+    return {"nu": nu}
 
 @app.route("/limite3/<cpf>/<senha>/<certificado>")
 def obter_limite3(cpf, senha, certificado):
