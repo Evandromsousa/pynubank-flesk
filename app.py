@@ -3,6 +3,7 @@ from pynubank import Nubank, MockHttpClient
 import os
 import random
 import string
+import requests
 from getpass import getpass
 import json
 from colorama import init, Fore, Style
