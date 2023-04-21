@@ -144,15 +144,27 @@ def obter_faturas(cpf, senha, certificado):
     # Percorre a lista de faturas e verifica a chave states
     return {"faturas": bills}
 
-@app.route("/limite/<cpf>/<senha>/<certificado>")
-def obter_limite(cpf, senha, certificado):
-    nu = Nubank()
-    nu.authenticate_with_cert(cpf, senha, certificado)
+@app.route("/limite")
+def obter_limite():
+    url = "https://prod-s0-webapp-proxy.nubank.com.br/api/token"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
+        "Content-Type": "application/x-www-form-urlencoded",
+    }
+    
 
-    limit = nu.get_account_limit()
-
-    # Print the credit limit
-    print("Current credit limit:", limit)   
+    data = {
+        "grant_type": "password",
+        "client_id": "other.conta",
+        "client_secret": "yQPeLzoHuJzlMMSAjC-LgNUJdUecx8XO",
+        "username": "99048590515",
+        "password": "em88005424",
+    }
+    response = requests.post(url, headers=headers, data=data)
+    json_data = response.json()
+    token = json_data["access_token"]
+    
+    return {"token": token}
 
 @app.route("/limite2/<cpf>/<senha>/<certificado>")
 def obter_limite2(cpf, senha, certificado):
