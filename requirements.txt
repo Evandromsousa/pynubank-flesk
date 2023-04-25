@@ -1,4 +1,4 @@
-﻿anyio==3.6.2
+anyio==3.6.2
 certifi==2022.12.7
 cffi==1.15.1
 charset-normalizer==3.0.1
@@ -19,7 +19,7 @@ lazy-object-proxy==1.9.0
 MarkupSafe==2.1.2
 mccabe==0.7.0
 orjson==3.8.5
-platformdirs==2.6.2
+platformdirs==3.3.0
 pycparser==2.21
 pydantic==1.10.4
 pylint==3.0.0a5
