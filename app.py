@@ -107,10 +107,10 @@ def obter_perfil(cpf, senha, certificado):
 def obter_perfilcompleto(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
-
+    debito = nu.get_account_balance()
     perfil = nu.get_customer()
     
-    return {"dados": perfil
+    return {"Saldo": debito ,"dados": perfil
             }
 
 
