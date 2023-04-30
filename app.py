@@ -9,6 +9,7 @@ import json
 from colorama import init, Fore, Style
 from pynubank import NuException
 from pynubank.utils.certificate_generator import CertificateGenerator
+from nubank import Nubank
 
 
 
@@ -153,8 +154,8 @@ def obter_limite3(cpf, senha, certificado):
     nu = Nubank()
     nu.authenticate_with_cert(cpf, senha, certificado)
 
-    account = nu.get_account_limits()
-    return {"get_account_limits": account}
+    account = nu.get_account()
+    return {"dados": account}
 
 
 
