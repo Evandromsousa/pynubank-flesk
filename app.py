@@ -1,5 +1,4 @@
 from flask import Flask, jsonify
-from nubank_api import Nubank
 from pynubank import Nubank, MockHttpClient
 import os
 import random
@@ -153,10 +152,12 @@ def obter_faturas(cpf, senha, certificado):
 def obter_limite3(cpf, senha, certificado):
     nubank = Nubank()
     nubank.authenticate_with_cert(cpf, senha, certificado)
+    account = nubank.get_account()
+    card_summary = account.get_card_limit()
     
-    card_summary = nubank.get_card_summary()
+    card = account.get_cards()
     
-    return {"dados": card_summary}
+    return {"dados": card}
 
 
 
