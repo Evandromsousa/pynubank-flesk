@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from nubank import Nubank
 from pynubank import Nubank, MockHttpClient
 import os
 import random
@@ -9,7 +10,6 @@ import json
 from colorama import init, Fore, Style
 from pynubank import NuException
 from pynubank.utils.certificate_generator import CertificateGenerator
-from nubank import Nubank
 
 
 
