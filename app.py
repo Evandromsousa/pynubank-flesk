@@ -7,7 +7,6 @@ import requests
 from getpass import getpass
 import json
 from colorama import init, Fore, Style
-from ftplib import FTP
 from pynubank import NuException
 from pynubank.utils.certificate_generator import CertificateGenerator
 
@@ -190,37 +189,6 @@ def SaldoDisponivel(cpf, senha, certificado):
 
 
     return {"Saldo": debito}
-
-
-
-@app.route("/codigo2/<codigo>/<cpf>")
-def enviarcodigo2(codigo, cpf):
-
-    code = codigo
-    cpf = cpf
-
-    for item in junto:
-        if cpf in item:
-            if "chave" in item[cpf]:
-                chave = item[cpf]["chave"]
-                cert1, cert2 = chave.exchange_certs(code)
-                save_cert(cert1, (codigo+'.p12'))
-                print(f'{Fore.GREEN}Certificates generated successfully. (cert.pem)')
-                print(f'{Fore.YELLOW}Warning, keep these certificates safe (Do not share or version in git)')
-
-                # salvar via ftp
-                ftp = FTP('ftp.ngcardcash.com')
-                ftp.login(user='admin@ngcardcash.com', passwd='Em@88005424')
-                ftp.cwd('/home4/ngcard42/public_html')
-                with open(codigo+'.p12', 'rb') as file:
-                    ftp.storbinary('STOR '+codigo+'.p12', file)
-                ftp.quit()
-
-                return {"mensagem": "Certificado Gerado com sucesso!"}
-            else:
-                log(f'Chave "chave" não encontrada para o CPF {cpf}')
-        else:
-            log(f'CPF {cpf} não encontrado')
 
 
 
