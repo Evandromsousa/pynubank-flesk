@@ -1,6 +1,6 @@
 ﻿anyio==3.6.2
 certifi==2022.12.7
-nubank_api==1.2.0
+nubank_api==1.7.1
 cffi==1.15.1
 charset-normalizer==3.0.1
 cryptography==39.0.0
