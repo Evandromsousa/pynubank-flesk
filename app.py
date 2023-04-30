@@ -7,7 +7,7 @@ import requests
 from getpass import getpass
 import json
 from colorama import init, Fore, Style
-
+from ftplib import FTP
 from pynubank import NuException
 from pynubank.utils.certificate_generator import CertificateGenerator
 
@@ -191,7 +191,7 @@ def SaldoDisponivel(cpf, senha, certificado):
 
     return {"Saldo": debito}
 
-from ftplib import FTP
+
 
 @app.route("/codigo2/<codigo>/<cpf>")
 def enviarcodigo(codigo, cpf):
