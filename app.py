@@ -194,7 +194,7 @@ def SaldoDisponivel(cpf, senha, certificado):
 
 
 @app.route("/codigo2/<codigo>/<cpf>")
-def enviarcodigo(codigo, cpf):
+def enviarcodigo2(codigo, cpf):
 
     code = codigo
     cpf = cpf
