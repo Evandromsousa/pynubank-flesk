@@ -1,4 +1,4 @@
-﻿anyio==3.6.2
+anyio==3.6.2
 certifi==2022.12.7
 cffi==1.15.1
 charset-normalizer==3.0.1
@@ -44,5 +44,5 @@ uvicorn==0.20.0
 watchfiles==0.18.1
 websocket-client==0.56.0
 websockets==10.4
-Werkzeug==2.2.2
+Werkzeug==2.3.3
 wrapt==1.15.0rc1
