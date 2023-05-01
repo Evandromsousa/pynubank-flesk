@@ -92,13 +92,24 @@ def obter_perfil(cpf, senha, certificado):
 
     perfil = nu.get_customer()
     debito = nu.get_account_balance()
+    info_card = nu.get_credit_card_balance()
+    
+    limite_disponivel = info_card.get('available', 'Limite disponivel não encontrado')
+    
+    fatura_atual = info_card.get('open', 'Fatura atual não encontrado')
+    
+    proximas_faturas = info_card.get('future', 'Fatura atual não encontrado')
+    
 
     telefone = perfil.get('phone', 'Telefone não informado')
     email = perfil['email']
     
     return {"telefone": telefone,
             "email": email,
-            "debito": debito
+            "debito": debito,
+            "limitedisponivel": limite_disponivel,
+            "faturaatual": fatura_atual,
+            "proximasfaturas": proximas_faturas
             }
 
 
