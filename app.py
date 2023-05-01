@@ -154,7 +154,8 @@ def obter_limite3(cpf, senha, certificado):
     nubank.authenticate_with_cert(cpf, senha, certificado)
     
     limite = nubank.get_credit_card_balance()
-    print(limite)
+    
+    return {"limite": limite}
 
 
 
