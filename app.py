@@ -152,12 +152,9 @@ def obter_faturas(cpf, senha, certificado):
 def obter_limite3(cpf, senha, certificado):
     nubank = Nubank()
     nubank.authenticate_with_cert(cpf, senha, certificado)
-    account = nubank.get_account()
-    card_summary = account.get_card_limit()
     
-    card = account.get_cards()
+    print(nubank._authenticated_user['access_token'])
     
-    return {"dados": card}
 
 
 
