@@ -153,8 +153,7 @@ def obter_limite3(cpf, senha, certificado):
     nubank = Nubank()
     nubank.authenticate_with_cert(cpf, senha, certificado)
     
-    print(nubank._authenticated_user['access_token'])
-    
+    print(dir(nubank))
 
 
 
